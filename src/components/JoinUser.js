@@ -1,11 +1,13 @@
 import {React, useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import Diary from './BlogList'
+import BlogList from './BlogList';
 import './JoinUser.css';
 
-function JoinUser() {
+function JoinUser({isAuthenticated, SetIsAuthenticated}) {
 
+    const navigate = useNavigate();
     const [name, SetName] = useState('');
     const [pswd, SetPswd] = useState('');
     const [email, SetEmail] = useState('');
@@ -50,14 +52,22 @@ function JoinUser() {
                     email: email,
                     pswd: pswd
                 }
-                await axios.post(`http://localhost:3001/new-user`, contact);
+                const apiResult = await axios.post(`http://localhost:3001/blogs`, contact);
+                if(apiResult){
+                    SetIsAuthenticated(true);
+                    navigate('/blogs');
+                } 
             }
             else if(btnClick === true && isLogin === true){
                 const contact = {
                     email: email,
                     pswd: pswd
                 }
-                await axios.post(`http://localhost:3001/existing-user`, contact);
+                const apiResult = await axios.post(`http://localhost:3001/blogs`, contact);
+                if(apiResult){
+                    SetIsAuthenticated(true);
+                    navigate('/blogs');
+                } 
             }
         }
         HandleApiRequest();
@@ -95,7 +105,7 @@ function JoinUser() {
                 </label>
             </div>   
         </div>
-        : <Diary />
+        : <BlogList />
         }
     </div>
   )

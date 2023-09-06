@@ -2,8 +2,11 @@ import React from 'react'
 
 function BlogList() {
   return (
-    <div>showing all your list of blogs</div>
+    <div>
+      <h1>CLIENT</h1>
+      <h2>Blog List</h2>
+    </div>
   )
 }
 
-export default BlogList
+export default BlogList;
